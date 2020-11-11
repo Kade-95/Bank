@@ -193,7 +193,7 @@ function AdminManager() {
     }
 
     this.handleTransfer = (req, res, data) => {
-
+        
     }
 }
 

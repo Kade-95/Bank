@@ -127,102 +127,38 @@ function AccountManager() {
         });
     }
 
-    this.credit = (req, res, data, transfer) => {
-        return mainManager.find(req, { collection: 'accounts', query: { accountNo: data.accountNo }, options: { projection: { balance: 1, currency: 1, _id: 0 } } })
-            .then(account => {
-                if (account) {
-                    if (account.balance == undefined) account.balance = 0;
-                    account.balance -= 0;
-                    account.balance += mainManager.convertToBaseCurrency(data.amount, account.currency) / 1;
-                    return mainManager.update(req, { collection: 'accounts', query: { accountNo: data.accountNo }, options: { "$set": { balance: account.balance } } })
-                        .then(creditted => {
-                            let status = creditted == 1;
-                            let message = status ? "Credit was successful" : "Credit Failed";
-                            if (transfer != true) {
-                                mainManager.respond(req, res, { status, message });
-                            }
-
-                            data.status = status;
-                            data.message = message;
-                            mainManager.makeHistory(req, true, { action: 'Account Creditted', data, collection: 'accounts', item: data.accountNo });
-                            return true;
-                        })
-                        .catch(error => {
-                            console.error(error);
-                            return false;
-                        });
-                }
-                else {
-                    mainManager.respond(req, res, { status: false, message: "Account could not be found" });
-                }
-            })
-            .catch(error => {
-                console.error(error);
-                return false;
-            });
-    }
-
-    this.debit = (req, res, data, transfer) => {
-        return mainManager.find(req, { collection: 'accounts', query: { accountNo: data.accountNo }, options: { projection: { balance: 1, currency: 1, _id: 0 } } })
-            .then(account => {
-                if (account) {
-                    if (account.balance == undefined) account.balance = 0;
-                    account.balance -= 0;
-                    account.balance -= mainManager.convertToBaseCurrency(data.amount, account.currency) / 1;
-                    return mainManager.update(req, { collection: 'accounts', query: { accountNo: data.accountNo }, options: { "$set": { balance: account.balance } } })
-                        .then(debitted => {
-                            let status = debitted == 1;
-                            let message = status ? "Debit was successful" : "Debit Failed";
-                            if (transfer != true) {
-                                mainManager.respond(req, res, { status, message });
-                            }
-
-                            data.status = status;
-                            data.message = message;
-                            mainManager.makeHistory(req, true, { action: 'Account Debit', data, collection: 'accounts', item: data.accountNo });
-                            return true;
-                        })
-                        .catch(error => {
-                            console.error(error);
-                            return false;
-                        });
-                }
-                else {
-                    mainManager.respond(req, res, { status: false, message: "Account could not be found" });
-                }
-            })
-            .catch(error => {
-                console.error(error);
-                return false;
-            });
-    }
-
     this.transfer = (req, res, data) => {
-        this.debit(req, res, { accountNo: data.source, amount: data.amount })
+        mainManager.debit(req, { accountNo: data.source, amount: data.amount })
             .then(debitted => {
-                if (debitted) {
-                    this.credit(req, res, { accountNo: data.destination, amount: data.amount })
+                if (debitted.status == true) {
+                    mainManager.credit(req, { accountNo: data.destination, amount: data.amount })
                         .then(creditted => {
-                            if (!creditted) {//rollback
-                                this.credit(req, res, { accountNo: data.source, amount: data.amount })
+                            if (!creditted.status) {//rollback
+                                mainManager.credit(req, res, { accountNo: data.source, amount: data.amount })
                                     .then(rollback => {
-                                        if (!rollback) {//rollback
-                                            this.notifyAdmin(req, {});
+                                        if (!rollback.status) {//rollback
+                                            this.notifyAdmin(req, { title: 'Rollback failure', note: `The rollback of a this transaction failed, ${data.source} needs to be credited`, link: `users.html?page=showUser&id=${result[0]._id.toString()}` });
                                         }
                                     })
-                                    .catch(console.error);
+                                    .catch(error => {
+                                        console.log(error);
+                                    });
                             }
                             let status = creditted;
                             let message = status ? "Transfer Successful" : "Transfer Failed";
                             mainManager.respond(req, res, { status, message });
                         })
-                        .catch(console.error);
+                        .catch(error => {
+                            mainManager.respond(req, res, error);
+                        });
                 }
                 else {
-                    mainManager.respond(req, res, { status: false, message: "Transfer Failed" });
+                    mainManager.respond(req, res, debitted);
                 }
             })
-            .catch(console.error);
+            .catch(error => {
+                mainManager.respond(req, res, error);
+            });
     }
 
     this.checkBalance = (req, res, data) => {

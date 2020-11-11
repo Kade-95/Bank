@@ -27,7 +27,7 @@ function NotificationManager() {
                     }
                 }
             }
-            mainManager.respond(req, res, notifications);
+            mainManager.respond(req, res, { status: 1, message: "Here are notifications", payload: notifications });
         });
     }
 
@@ -35,8 +35,10 @@ function NotificationManager() {
         data.id = new ObjectId(data.id);
         mainManager.find({ collection: 'notifications', query: { _id: data.id }, projection: { sent: 1, _id: 0 } }).then(note => {
             note.sent[global.sessions[req.sessionId].user] = new Date().getTime();
-            mainManager.set(req, { collection: 'notifications', query: { _id: data.id }, options: { '$set': { sent: note.sent } } }).then(read => {
-                mainManager.respond(req, res, read == 1);
+            mainManager.set(req, { collection: 'notifications', query: { _id: data.id }, options: { '$set': { sent: note.sent } } }).then(sent => {
+                let status = sent == 1;
+                let message = status ? "Notification Sent" : "Notification not sent";
+                mainManager.respond(req, res, { status, message });
             });
         });
     }
@@ -46,7 +48,9 @@ function NotificationManager() {
         mainManager.find({ collection: 'notifications', query: { _id: data.id }, projection: { read: 1, _id: 0 } }).then(note => {
             note.read[global.sessions[req.sessionId].user] = new Date().getTime();
             mainManager.set(req, { collection: 'notifications', query: { _id: data.id }, options: { '$set': { read: note.read } } }).then(read => {
-                mainManager.respond(req, res, read == 1);
+                let status = read == 1;
+                let message = status ? "Notification Read" : "Notification not read";
+                mainManager.respond(req, res, { status, message });
             });
         });
     }

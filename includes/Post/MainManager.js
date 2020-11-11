@@ -207,6 +207,73 @@ function MainManager() {
     this.convertToAccountCurrency = (amount, currency) => {
         return amount;
     }
+
+    this.credit = (req, data) => {
+        return this.find(req, { collection: 'accounts', query: { accountNo: data.accountNo }, options: { projection: { balance: 1, currency: 1, _id: 0 } } })
+            .then(account => {
+                if (account) {
+                    if (account.balance == undefined) account.balance = 0;
+                    account.balance -= 0;
+                    account.balance += this.convertToBaseCurrency(data.amount, account.currency) / 1;
+                    return this.update(req, { collection: 'accounts', query: { accountNo: data.accountNo }, options: { "$set": { balance: account.balance } } })
+                        .then(creditted => {
+                            let status = creditted == 1;
+                            let message = status ? "Credit was successful" : "Credit Failed";
+                            let reply = { status, message };
+
+                            data.status = status;
+                            data.message = message;
+                            this.makeHistory(req, status, { action: 'Account Credited', data, collection: 'accounts', item: data.accountNo });
+                            return reply;
+                        })
+                        .catch(error => {
+                            return { status: false, message: "Error crediting account", payload: error };
+                        });
+                }
+                else {
+                    let reply = { status: false, message: "Credit account not found" };
+                    return reply;
+                }
+            })
+            .catch(error => {
+                return { status: false, message: "Error finding the credit account", payload: error };
+            });
+    }
+
+    this.debit = (req, data) => {
+        return this.find(req, { collection: 'accounts', query: { accountNo: data.accountNo }, options: { projection: { balance: 1, currency: 1, _id: 0 } } })
+            .then(account => {
+                if (account) {
+                    if (account.balance == undefined) account.balance = 0;
+                    account.balance -= 0;
+                    account.balance -= this.convertToBaseCurrency(data.amount, account.currency) / 1;
+
+                    if (account.balance < 0) return { status: false, message: 'Insufficient Fund' };
+
+                    return this.update(req, { collection: 'accounts', query: { accountNo: data.accountNo }, options: { "$set": { balance: account.balance } } })
+                        .then(creditted => {
+                            let status = creditted == 1;
+                            let message = status ? "Debit was successful" : "Debit Failed";
+                            let reply = { status, message };
+
+                            data.status = status;
+                            data.message = message;
+                            this.makeHistory(req, status, { action: 'Account Debited', data, collection: 'accounts', item: data.accountNo });
+                            return reply;
+                        })
+                        .catch(error => {
+                            return { status: false, message: "Error debiting account", payload: error };
+                        });
+                }
+                else {
+                    let reply = { status: false, message: "Debit account not found" };
+                    return reply;
+                }
+            })
+            .catch(error => {
+                return { status: false, message: "Error finding the debit account", payload: error };
+            });
+    }
 }
 
 module.exports = MainManager;

@@ -15,14 +15,14 @@
     overflow: auto;
 }
 
-.form-multi-element {
+.form-multiple-element {
     display: grid;
     grid-template-rows: 1fr;
-    grid-template-columns: repeat(2, 1fr);
     align-items: flex-start;
     justify-content: flex-start;
     width: min(1000px, 100%);
     justify-self: center;
+    gap: min(50px, 2em);
 }
 
 .form-element {

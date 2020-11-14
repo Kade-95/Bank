@@ -1,10 +1,28 @@
+.form-container {
+    height: 100%;
+    overflow: hidden;
+    display: grid;
+    grid-template-rows: max-content 1fr;
+    grid-template-columns: 1fr;
+}
+
 .form {
-    width: -webkit-fill-available;
-    padding: 24px 32px;
+    width: calc(100% - 30px);
+    height: calc(100% - (30px)*2);
+    padding: 24px 30px;
     display: grid;
     gap: 24px;
     overflow: auto;
-    height: calc(100% - 50px);
+}
+
+.form-multi-element {
+    display: grid;
+    grid-template-rows: 1fr;
+    grid-template-columns: repeat(2, 1fr);
+    align-items: flex-start;
+    justify-content: flex-start;
+    width: min(1000px, 100%);
+    justify-self: center;
 }
 
 .form-element {
@@ -13,14 +31,16 @@
     grid-template-columns: 1fr;
     align-items: flex-start;
     justify-content: flex-start;
+    width: min(1000px, 100%);
+    justify-self: center;
 }
 
 .form-element-label {
-    font-family: Lato;
+    font-family: var(--text-font-family);
     font-style: normal;
     font-weight: bold;
-    font-size: 12px !important;
-    line-height: 14px;
+    font-size: var(--text-font-size) !important;
+    line-height: var(--text-line-height);
     text-transform: uppercase;
     color: var(--secondary-color);
     display: grid;
@@ -48,14 +68,24 @@
     justify-content: center;
     background-color: var(--secondary-color);
     color: var(--primary-color);
+    width: min(1000px, 100%);
+    justify-self: center;
+    font-size: var(--text-font-size);
 }
 
 .form-note {
     color: var(--secondary-color);
     font-weight: 500;
-    font-size: 12px;
-    line-height: 14px;
+    font-size: var(--text-font-size);
+    font-size: var(--text-line-height);
     display: flex;
     align-items: center;
     font-style: normal;
+}
+
+@media(min-width: 700px) {
+    .form-container {
+        height: calc(100% - 4em);
+        padding: 2em;
+    }
 }

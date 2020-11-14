@@ -8,31 +8,31 @@
     width: var(--fill-available);
 }
 
-#main-header.big{
+#main-header.big {
     padding: min(60px, 30%) 23px;
 }
 
-#main-banner{
+#main-banner {
     display: flex;
     justify-content: space-between;
     align-items: center;
     width: 100%;
 }
 
-#app-name{
+#app-name {
     display: flex;
     justify-content: center;
     align-items: center;
     padding: 1em;
     font-style: normal;
-    font-family: var(--title-font);
+    font-family: var(--title-font-family);
     color: var(--primary-color);
-    font-weight: 700;
-    line-height: 47px;
-    font-size: 36px;
+    font-weight: var(--title-font-weight);
+    line-height: var(--title-line-height);
+    font-size: var(--title-font-size);
 }
 
-#app-logo{
+#app-logo {
     display: flex;
     align-items: center;
     justify-content: center;

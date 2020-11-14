@@ -16,11 +16,11 @@ let getFormData = (params = { element: '', name: '', type: '', note: '' }) => {
     });
 }
 
-document.addEventListener("DOMContentLoaded", event => {
+let land = () => {
     let app = document.body.makeElement({
         element: "section", attributes: { id: 'app-window' }, children: [
             {
-                element: 'header', attributes: { id: 'main-header', class: '' }, children: [
+                element: 'header', attributes: { id: 'main-header', class: 'big' }, children: [
                     {
                         element: 'banner', attributes: { id: 'main-banner' }, children: [
                             { element: 'a', attributes: { id: 'app-name' }, text: 'Bank' },
@@ -39,12 +39,12 @@ document.addEventListener("DOMContentLoaded", event => {
             }
         ]
     });
-    
+
     let header = app.find('#main-header');
     let main = app.find('#main-window');
-    
+
     let login = base.createElement({
-        element: 'div', attributes: { id: 'login-window' }, children: [
+        element: 'div', attributes: { id: 'login-window', class: 'form-container' }, children: [
             {
                 element: 'span', attributes: { class: 'tab' }, children: [
                     { element: 'a', attributes: { class: 'tab-element', id: 'login-tab' }, text: 'Log In' },
@@ -75,4 +75,6 @@ document.addEventListener("DOMContentLoaded", event => {
     })
 
     main.append(login);
-});
+}
+
+module.exports = { land };

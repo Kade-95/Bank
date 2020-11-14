@@ -1,6 +1,10 @@
 #main-window{
     display: grid;
+    grid-template-columns: 1fr;
     flex-direction: column;
-    height: 100%;
+    height: calc(100% - 2em);
+    width: calc(100% - 2em);
+    padding: 1em;
     overflow: hidden;
+    justify-content: center;
 }

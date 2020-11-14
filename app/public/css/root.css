@@ -4,8 +4,16 @@
     --accient-color: #F4E8DF;
     --light-gray: #F1F1F9;
     --dark-gray: #848484;
-    --main-font: Lato;
-    --title-font: DM Sans;
+    --title-font-family: DM Sans;
+    --tilte-font-weight: 700;
+    --title-line-height: 47px;
+    --title-font-size: 36px;
+    --text-font-family: Lato;
+    --text-font-size: 12px;
+    --text-line-height: 14px;
+    --small-gap: 24px;
+    --normal-gap: 32px;
+    --large-gap: 40px;
     --fill-available: -webkit-fill-available;
 }
 
@@ -23,4 +31,44 @@ html, body {
     overflow: hidden;
     width: 100%;
     height: 100vh;
+}
+
+/* width */
+
+::-webkit-scrollbar {
+    width: 10px;
+    border-radius: 100px;
+}
+
+/* Track */
+
+::-webkit-scrollbar-track {
+    background: var(--light-gray);
+}
+
+/* Handle */
+
+::-webkit-scrollbar-thumb {
+    background: var(--secondary-color);
+    border-radius: 100px;
+}
+
+/* Handle on hover */
+
+::-webkit-scrollbar-thumb:hover {
+    background: var(--accient-color);
+}
+
+@media(min-width: 700px) {
+    :root {
+        --tilte-font-weight: bold;
+        --title-line-height: 94px;
+        --title-font-size: 72px;
+        --text-font-size: 18px;
+        --text-line-height: 22px;
+    }
+    #app-window {
+        grid-template-columns: max(300px, 30%) 1fr;
+        grid-template-rows: 1fr;
+    }
 }

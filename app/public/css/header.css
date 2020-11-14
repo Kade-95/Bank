@@ -1,0 +1,40 @@
+#main-header {
+    display: flex;
+    align-items: center;
+    grid-template-columns: 1fr;
+    justify-content: space-between;
+    background-color: var(--secondary-color);
+    padding: 0px 23px;
+    width: var(--fill-available);
+}
+
+#main-header.big{
+    padding: min(60px, 30%) 23px;
+}
+
+#main-banner{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+}
+
+#app-name{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 1em;
+    font-style: normal;
+    font-family: var(--title-font);
+    color: var(--primary-color);
+    font-weight: 700;
+    line-height: 47px;
+    font-size: 36px;
+}
+
+#app-logo{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    pad: 1em;
+}

@@ -1,0 +1,6 @@
+#login-window{
+    height: 100%;
+    overflow: hidden;
+    display: grid;
+    grid-template-rows: max-content 1fr;
+}

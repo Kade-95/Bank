@@ -1,23 +1,31 @@
-.tab{
+.tab {
     display: flex;
     justify-content: flex-start;
     align-items: center;
-    padding: 10px;
+    /* padding: 10px 0px; */
 }
 
-.tab-element{
+.tab-element {
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 24px;
-    line-height: 31px;
-    font-weight: 700;
+    font-size: calc(var(--text-font-size)*1.15);
+    line-height: var(--text-line-height);
+    font-weight: var(--tilte-font-weight);
     font-family: var(--title-font);
-    color: var(--light-gray);
+    color: var(--dark-gray);
     font-style: normal;
     padding: 4px 8px;
+    cursor: pointer;
+    text-transform: uppercase;
 }
 
-.tab-element.active{
+.tab-element.active {
     color: var(--secondary-color);
+}
+
+@media(min-width: 700) {
+    .tab{
+        padding: 10px 0px;
+    }
 }

@@ -1,0 +1,128 @@
+#dashboard {
+    grid-template-rows: max-content 1fr;
+}
+
+#dashboard-content {
+    display: grid;
+    height: 100%;
+    grid-template-rows: 1fr;
+    grid-template-columns: 1fr;
+    justify-content: center;
+    overflow: hidden;
+}
+
+.dashboard-section {
+    display: grid;
+    justify-self: start;
+    width: calc(100% - 20px);
+    padding: 10px;
+    overflow: hidden;
+}
+
+.dashboard-section#history-page {
+    grid-template-rows: max-content 1fr;
+    grid-template-columns: 1fr;
+    align-items: flex-start;
+    justify-content: flex-start;
+    height: calc(100% - 20px);
+    padding: 10px;
+    overflow: auto;
+    gap: 1em;
+}
+
+.dashboard-section#accounts-page {
+    grid-template-rows: 1fr;
+    height: 100%;
+    overflow: hidden;
+    gap: 1em;
+}
+
+#search-area {
+    display: grid;
+    grid-template-columns: max-content 1fr;
+    gap: 1em;
+    background-color: var(--light-gray);
+    padding: 1em;
+    align-items: center;
+}
+
+#search-area:active {
+    outline: 2px solid black;
+    border-radius: 10px;
+}
+
+#search-box {
+    border: none;
+    outline: none;
+    display: flex;
+    align-items: center;
+    justify-content: left;
+    padding: .2em;
+    background-color: transparent;
+}
+
+#dashboard-actions {
+    display: grid;
+    grid-template-rows: max-content 1fr;
+    grid-template-columns: 1fr;
+    gap: .5em;
+    justify-content: flex-start;
+}
+
+#dashboard-actions-path {
+    display: block;
+    text-align: left;
+    padding: .5em;
+}
+
+.dashboard-actions-stop {
+    padding: 0.5em .5em;
+    display: inline-grid;
+    gap: .5em;
+    grid-template-columns: max-content max-content;
+    align-items: center;
+}
+
+#dashboard-actions-list {
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: repeat(5, max-content);
+    gap: .5em;
+    align-items: flex-start;
+    padding: .5em;
+}
+
+.dashboard-actions-single {
+    display: inline-grid;
+    grid-template-columns: 1fr max-content max-content;
+    background-color: var(--light-gray);
+    padding: 1em;
+    align-items: center;
+    gap: 1em;
+    cursor: pointer;
+}
+
+.dashboard-actions-name {
+    text-align: left;
+    font-family: var(--text-font-family);
+    font-size: var(--text-font-size);
+}
+
+.dashboard-actions-count {
+    text-align: left;
+    font-family: var(--text-font-family);
+    font-size: var(--text-font-size);
+    color: red;
+}
+
+@media(min-width: 700px) {
+    #dashboard-actions-list {
+        display: block;
+        text-align: left;
+    }
+
+    .dashboard-actions-single {
+        margin: .5em;
+        width: max(20%, 200px);
+    }
+}

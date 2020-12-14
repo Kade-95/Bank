@@ -1,14 +1,14 @@
 :root {
     --primary-color: #ffffff;
-    --secondary-color: #3E3C8A;
+    --secondary-color: #434195;
     --accient-color: #F4E8DF;
     --light-gray: #F1F1F9;
     --dark-gray: #848484;
-    --title-font-family: DM Sans;
+    --title-font-family: "Audiowide" sans-serif;
     --tilte-font-weight: 700;
     --title-line-height: 47px;
     --title-font-size: 36px;
-    --text-font-family: Lato;
+    --text-font-family: "Lato" sans-serif;
     --text-font-size: 12px;
     --text-line-height: 14px;
     --small-gap: 24px;
@@ -17,9 +17,12 @@
     --fill-available: -webkit-fill-available;
 }
 
-html, body {
+*{
     margin: 0;
     padding: 0;
+}
+
+html, body {
     width: 100%;
     height: 100vh;
 }
@@ -33,35 +36,70 @@ html, body {
     height: 100vh;
 }
 
-/* width */
-
-::-webkit-scrollbar {
-    width: 10px;
-    border-radius: 100px;
+#app-window.big-header {
+    grid-template-rows: max(300px, 30%) 1fr;
 }
 
-/* Track */
+::-webkit-scrollbar {
+    width: 5px;
+    border-radius: 100px;
+}
 
 ::-webkit-scrollbar-track {
     background: var(--light-gray);
 }
-
-/* Handle */
 
 ::-webkit-scrollbar-thumb {
     background: var(--secondary-color);
     border-radius: 100px;
 }
 
-/* Handle on hover */
-
 ::-webkit-scrollbar-thumb:hover {
     background: var(--accient-color);
 }
 
+.footer-buttons {
+    display: grid;
+    grid-template-columns: max-content max-content;
+    gap: 1em;
+    bottom: 30px;
+    justify-content: center;
+    text-align: center;
+    position: relative;
+}
+
+.footer-buttons-action {
+    display: grid;
+    grid-template-rows: max-content max-content;
+    gap: 1em;
+    grid-template-columns: 1fr;
+    justify-items: center;
+}
+
+.footer-buttons .icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 25px;
+    box-shadow: 2px 4px 20px rgba(0, 0, 0, 0.1);
+    border-radius: 50%;
+    color: var(--secondary-color);
+    cursor: pointer;
+    width: 50px;
+    height: 50px;
+    font-size: 30px;
+    font-style: italic;
+}
+
+.footer-buttons-action-name {
+    font-size: min(1.1, 24px);
+    text-transform: uppercase;
+    font-weight: 400;
+}
+
 @media(min-width: 700px) {
     :root {
-        --tilte-font-weight: bold;
+        --tilte-font-weight: 1000;
         --title-line-height: 94px;
         --title-font-size: 72px;
         --text-font-size: 18px;
@@ -70,5 +108,12 @@ html, body {
     #app-window {
         grid-template-columns: max(300px, 30%) 1fr;
         grid-template-rows: 1fr;
+    }
+    #app-window.big-header {
+        grid-template-columns: max(300px, 50%) 1fr;
+        grid-template-rows: 1fr;
+    }
+    ::-webkit-scrollbar {
+        width: 10px;
     }
 }

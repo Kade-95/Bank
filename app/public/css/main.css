@@ -2,9 +2,8 @@
     display: grid;
     grid-template-columns: 1fr;
     flex-direction: column;
-    height: calc(100% - 2em);
-    width: calc(100% - 2em);
-    padding: 1em;
+    height: 100%;
+    width: 100%;
     overflow: hidden;
     justify-content: center;
 }

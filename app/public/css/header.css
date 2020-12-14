@@ -1,15 +1,16 @@
 #main-header {
-    display: flex;
+    position: relative;
+    display: grid;
     align-items: center;
     grid-template-columns: 1fr;
     justify-content: space-between;
     background-color: var(--secondary-color);
-    padding: 0px 23px;
-    width: var(--fill-available);
-}
-
-#main-header.big {
-    padding: min(60px, 30%) 23px;
+    padding: 24px 0px;
+    width: 100%;
+    background-image: url(./../images/cover.png);
+    background-position: center;
+    background-repeat: repeat;
+    background-size: contain;
 }
 
 #main-banner {
@@ -23,7 +24,6 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    padding: 1em;
     font-style: normal;
     font-family: var(--title-font-family);
     color: var(--primary-color);
@@ -37,4 +37,100 @@
     align-items: center;
     justify-content: center;
     pad: 1em;
+}
+
+#header-account-details-container {}
+
+.header-account-details {
+    display: grid;
+    grid-template-columns: repeat(2, max-content);
+    justify-content: center;
+    align-self: flex-start;
+    row-gap: 4em;
+}
+
+.header-account-details-container {
+    display: grid;
+    grid-template-columns: 1fr;
+    justify-content: center;
+}
+
+.header-account-details-item {
+    color: var(--primary-color);
+    font-size: var(--text-font-size);
+    font-weight: 300;
+    display: flex;
+    align-items: center;
+    width: 100%;
+    word-break: break-all;
+}
+
+.header-account-details-item.big {
+    font-size: calc(var(--title-font-size) * .5);
+    font-weight: 700;
+}
+
+.header-account-details-container.account-name {
+    display: grid;
+    grid-template-columns: repeat(2, max-content);
+    align-items: center;
+    justify-content: left;
+    gap: 10px;
+}
+
+#dp {
+    width: calc(var(--text-font-size)*7);
+    height: calc(var(--text-font-size)*7);
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+#dp.icon {
+    border: 1px solid black;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#logout-button {
+    display: flex;
+    justify-content: flex-end;
+    color: var(--primary-color);
+    text-transform: uppercase;
+    cursor: pointer;
+    letter-spacing: 1.5px;
+}
+
+@media(min-width: 700px) {
+    .header-account-details {
+        grid-template-columns: 1fr;
+        gap: 3em .5em;
+        padding: 10px;
+    }
+    .header-account-details-item {
+        font-size: calc(var(--text-font-size) * .8);
+        padding: 0em min(0px, 24px);
+    }
+    .header-account-details-item.big {
+        font-size: calc(var(--title-font-size) * .4);
+    }
+    .header-account-details-container.account-name {
+        grid-area: 1/1/span 1/span 1;
+    }
+    .header-account-details-container.account-no {
+        grid-area: 2/1/span 1/span 1;
+    }
+    .header-account-details-item.account-type {
+        grid-area: 2/2/span 1/span 1;
+    }
+    .header-account-details-container.account-balance {
+        grid-area: 3/1/span 1/span 1;
+    }
+    #logout-button {
+        width: 100%;
+        position: absolute;
+        bottom: min(30px, 3%);
+        justify-content: center;
+        padding: 0%;
+    }
 }

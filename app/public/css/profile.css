@@ -1,0 +1,126 @@
+#profile-window {
+    display: grid;
+    grid-template-rows: max-content 1fr;
+    gap: 1em;
+    position: relative;
+    height: 100%;
+}
+
+#profile-primary {
+    display: grid;
+    grid-template-columns: max-content 1fr;
+    align-items: center;
+    gap: 1em;
+    border-bottom: 3px solid var(--light-gray);
+    padding: 3em;
+}
+
+#profile-primary-details {
+    display: grid;
+    gap: 5px;
+    grid-row: max-content max-content;
+}
+
+.profile-label {
+    font-size: min(10px, 1em);
+    text-transform: uppercase;
+}
+
+.profile-item {
+    font-size: min(1.1, 24px);
+    text-transform: uppercase;
+    font-weight: 400;
+}
+
+.profile-item.big {
+    font-weight: 700;
+}
+
+#profile-account-number {
+    display: grid;
+    grid-template-columns: max-content max-content max-content;
+    gap: 15px;
+}
+
+#profile-secondary {
+    display: grid;
+    grid-template-rows: max-content max-content;
+    align-items: flex-start;
+    justify-content: center;
+    padding: 1em;
+    gap: 3em;
+}
+
+.profile-section {
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: max-content max-content;
+    gap: 1em;
+}
+
+.profile-container {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+}
+
+.profile-cell.address {
+    grid-area: 2/1/span 1/span 3;
+}
+
+.profile-cell.date-of-birth {
+    grid-area: 3/1/span 1/span 1;
+}
+
+.profile-cell.nationality {
+    grid-area: 3/2/span 1/span 1;
+}
+
+.profile-cell {
+    display: grid;
+    grid-template-rows: max-content max-content;
+    grid-template-columns: 1fr;
+    align-items: flex-start;
+    gap: .5em;
+}
+
+.profile-cell-data {
+    height: 40px;
+    align-items: center;
+    display: flex;
+    font-size: min(1em, 15px);
+    text-transform: uppercase;
+    font-weight: 400;
+    width: 100%;
+}
+
+.profile-control {
+    display: grid;
+    grid-template-columns: max-content max-content;
+    gap: 1em;
+    bottom: 30px;
+    justify-content: center;
+    text-align: center;
+    position: relative;
+}
+
+.profile-control-container {
+    display: grid;
+    grid-template-rows: max-content max-content;
+    gap: 1em;
+}
+
+.profile-control .icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 25px;
+    box-shadow: 2px 4px 20px rgba(0, 0, 0, 0.1);
+    border-radius: 50%;
+    color: var(--secondary-color);
+    cursor: pointer;
+    width: 50px;
+    height: 50px;
+    font-size: 30px;
+    font-style: italic;
+}

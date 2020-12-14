@@ -2,26 +2,47 @@
     height: 100%;
     overflow: hidden;
     display: grid;
-    grid-template-rows: max-content 1fr;
+    grid-template-rows: max-content max-content;
     grid-template-columns: 1fr;
+    align-items: flex-start;
 }
 
 .form {
-    width: calc(100% - 30px);
+    width: calc(100% - 60px);
     height: calc(100% - (30px)*2);
     padding: 24px 30px;
     display: grid;
     gap: 24px;
     overflow: auto;
+    align-items: flex-start;
+    justify-self: center;
+    grid-template-columns: 1fr;
+    grid-template-rows: repeat(4, max-content);
 }
 
-.form-multiple-element {
+.form-error{
+    color: red;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.form-contents, .form-controls{
+    display: grid;
+    grid-template-rows: 1fr;
+    grid-template-columns: 1fr;
+    align-items: flex-start;
+    gap: 24px;
+    width: 70%;
+    justify-self: center;
+}
+
+.form-element.multiple {
     display: grid;
     grid-template-rows: 1fr;
     align-items: flex-start;
     justify-content: flex-start;
     width: min(1000px, 100%);
-    justify-self: center;
     gap: min(50px, 2em);
 }
 
@@ -31,8 +52,8 @@
     grid-template-columns: 1fr;
     align-items: flex-start;
     justify-content: flex-start;
-    width: min(1000px, 100%);
-    justify-self: center;
+    width: 100%;
+    gap: 5px;
 }
 
 .form-element-label {
@@ -64,20 +85,21 @@
 .form-button {
     display: flex;
     height: 40px;
+    width: 100%;
     align-items: center;
     justify-content: center;
     background-color: var(--secondary-color);
     color: var(--primary-color);
-    width: min(1000px, 100%);
     justify-self: center;
     font-size: var(--text-font-size);
+    cursor: pointer;
+    border: none;
 }
 
 .form-note {
     color: var(--secondary-color);
-    font-weight: 500;
-    font-size: var(--text-font-size);
-    font-size: var(--text-line-height);
+    font-weight: 300;
+    font-size: calc(var(--text-font-size)*0.8);
     display: flex;
     align-items: center;
     font-style: normal;
@@ -87,5 +109,11 @@
     .form-container {
         height: calc(100% - 4em);
         padding: 2em;
+    }
+
+    .form-button {
+        width: min(100%, 200px);
+        min-width: fit-content;
+        justify-self: start;
     }
 }

@@ -1,0 +1,122 @@
+#transaction-history {
+    width: 100%;
+    display: grid;
+    grid-template-columns: 1fr;
+    align-items: flex-start;
+    justify-self: flex-start;
+    gap: 1em;
+}
+
+.transaction-history-single {
+    display: grid;
+    grid-template-columns: max-content 1fr max-content;
+    align-items: center;
+    gap: 1em;
+    padding: 1em;
+    cursor: pointer;
+}
+
+.transaction-history-single:hover {
+    background-color: var(--light-gray);
+}
+
+.transaction-history-single>.icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    border: 1px solid black;
+    padding: .5em;
+    font-size: var(--text-font-size);
+    /* align-self: flex-start; */
+    margin-right: 10px;
+}
+
+.transaction-history-single>.icon.debit {
+    border-color: red;
+    color: red;
+}
+
+.transaction-history-single>.icon.credit {
+    border-color: green;
+    color: green;
+}
+
+.transaction-history-item-container {
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: repeat(2, max-content);
+    gap: .3em;
+    align-items: flex-start;
+}
+
+.transaction-history-item-container:nth-of-type(2) .transaction-history-item {
+    text-align: right;
+}
+
+.transaction-history-item {
+    color: var(--dark-gray);
+    font-size: var(--text-font-size);
+    font-family: var(--text-font-family);
+    text-align: left;
+}
+
+#review-transfer {
+    display: grid;
+    grid-template-rows: max-content 1fr max-content;
+    grid-template-columns: 1fr;
+    justify-content: center;
+    gap: 1em;
+    padding: 1em;
+    width: calc(100% - 2em);
+    height: calc(100% - 2em);
+}
+
+#review-transfer-header {
+    display: grid;
+    gap: 1em;
+}
+
+#review-transfer-body {
+    display: grid;
+    gap: 2em;
+    grid-template-rows: max-content max-content;
+}
+
+#review-transfer-date {
+    justify-self: flex-end;
+    color: var(--dark-gray);
+    font-family: var(--text-font-family);
+}
+
+#review-transfer-amount {
+    font-size: var(--title-font-size);
+    font-family: var(--text-font-family);
+    justify-self: center;
+}
+
+.review-transfer-account {
+    display: flex;
+    flex-direction: column;
+    justify-self: start;
+    gap: .3em;
+}
+
+.review-transfer-account-direction{
+    font-weight: 500;
+    font-family: var(--text-font-family);
+    text-transform: uppercase;
+}
+
+.review-transfer-account-name{
+    font-weight: bold;
+    font-family: var(--text-font-family);
+    text-transform: capitalize;
+    font-size: calc(var(--text-font-size) * 1.5);
+}
+
+@media(min-width: 700px) {
+    #transaction-history {
+        width: min(700px, calc(100% - 4em));
+    }
+}

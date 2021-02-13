@@ -77,7 +77,7 @@ function resetRates() {
 
 function init(callback) {
     const Staff = require('./doa/staff');
-    mongoose.connect(process.env.MONGO_URL || 'mongodb://localhost:27017/bank', { useNewUrlParser: true, useUnifiedTopology: true });
+    mongoose.connect(process.env.MONGO_URI || 'mongodb://localhost:27017/bank', { useNewUrlParser: true, useUnifiedTopology: true });
     mongoose.Promise = global.Promise;
     const db = mongoose.connection;
 

@@ -1,5 +1,15 @@
-const sessions = require('./sessions');
+// const sessions = require('./sessions');
 const csc = require('country-state-city');
+const jwt = require('jsonwebtoken');
+const { validateToken, setToken } = require('./../services/shared')
+
+async function sessions(req, res, next) {
+    req.session = {};
+    const authentication = req.headers.authentication || '';
+    req.session.user = await validateToken(authentication);
+
+    next();
+}
 
 function authenticate(req, res, next) {
     if (!req.session || !req.session.user) {
@@ -22,7 +32,7 @@ function logout(req, res, next) {
         next(new Error('Logout failed'));
     }
     else {
-        res.json({ status: true, message: 'Logout successful' });
+        res.json({ status: true, message: 'Logout successful', token: 'null' });
     }
 }
 
@@ -33,10 +43,10 @@ function ping(req, res, next) {
     }
     else {
         if (profile == 'account' && req.session.user.roles.includes('Account')) {
-            res.json({ status: true, message: `Hello User, ${req.session.user.id}` });
+            res.json({ status: true, message: `Hello User, ${req.session.user.id}`, token: setToken(req.session.user) });
         }
         else if (profile == 'staff' && req.session.user.roles.includes('Staff')) {
-            res.json({ status: true, message: `Hello Staff, ${req.session.user.id}` });
+            res.json({ status: true, message: `Hello Staff, ${req.session.user.id}`, token: setToken(req.session.user) });
         }
         else {
             next(new Error("I don't know you!!"));
@@ -54,8 +64,8 @@ function rates(req, res, next) {
 }
 
 function convert(req, res, next) {
-    let {from, to, amount} = req.params;
-    res.json({status: true, message: global.convert(from, to, amount)});
+    let { from, to, amount } = req.params;
+    res.json({ status: true, message: global.convert(from, to, amount) });
 }
 
 function getImage(req, res, next) {
@@ -67,7 +77,7 @@ function getImage(req, res, next) {
 function registration(req, res, next) {
     let rates = Object.keys(global.rates);
     let nationalities = [];
-    for(let c of csc.default.getAllCountries()){
+    for (let c of csc.default.getAllCountries()) {
         nationalities.push(c.name);
     }
     res.json({ status: true, message: { rates, nationalities } });

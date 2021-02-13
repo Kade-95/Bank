@@ -33,6 +33,10 @@ module.exports = function Utils() {
                 }
                 if (request.readyState == 4) {
                     if (request.response) {
+                        if(request.response.token){
+                            localStorage.setItem('token', `Creeper ${request.response.token}`);
+                            console.log(request.response.token);
+                        }
                         if (request.response.status) {
                             resolve(request.response.message);
                         }
@@ -66,6 +70,7 @@ module.exports = function Utils() {
 
             request.open(params.method, params.url, true);
             request.setRequestHeader('Content-Type', 'application/json');
+            request.setRequestHeader('Authentication', localStorage.getItem('token'));
             request.send(JSON.stringify(params.body));
         });
     }

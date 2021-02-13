@@ -1,5 +1,6 @@
 const { Account, Request } = require('../services');
 const bcrypt = require('bcrypt');
+const { setToken } = require('../services/shared');
 
 function login(req, res, next) {
     const { username, password } = req.body;
@@ -10,8 +11,7 @@ function login(req, res, next) {
 
     Account.login(username, password)
         .then(user => {
-            req.session.user = user;
-            res.json({ status: true, message: 'You logged in' });
+            res.json({ status: true, message: 'You logged in', token: setToken(user) });
         })
         .catch(error => {
             let err = new Error(error);

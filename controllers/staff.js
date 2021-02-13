@@ -1,4 +1,5 @@
 const { Staff, Request } = require('../services');
+const { setToken } = require('../services/shared');
 
 function login(req, res, next) {
     const { username, password } = req.body;
@@ -9,8 +10,7 @@ function login(req, res, next) {
 
     Staff.login(username, password)
         .then(user => {
-            req.session.user = user;
-            res.json({ status: true, message: 'You logged in' });
+            res.json({ status: true, message: 'You logged in', token: setToken(user) });
         })
         .catch(error => {
             let err = new Error(error);
@@ -122,7 +122,7 @@ async function unResolved(req, res, next) {
     let deposit = await get('creditaccount');
     let withdraw = await get('debitaccount');
     let transfer = await get('externaltransfer');
-    res.json({ status: true, message: {edit, deposit, withdraw, transfer} });
+    res.json({ status: true, message: { edit, deposit, withdraw, transfer } });
 }
 
 module.exports = {

@@ -11,11 +11,11 @@
     "country-state-city": "^1.0.5",
     "express": "^4.17.1",
     "express-session": "^1.17.1",
+    "jsonwebtoken": "^8.5.1",
     "mongoose": "^5.10.16",
     "node-currency-converter": "^1.0.1",
     "nodemailer": "^6.4.16",
     "nodemon": "^2.0.6",
-    "redis": "^3.0.2",
     "watchify": "^4.0.0"
   },
   "devDependencies": {
@@ -24,7 +24,7 @@
   },
   "scripts": {
     "test": "nodemon test.js",
-    "start": "node index.js",
+    "start": "nodemon index.js",
     "start:nodemon": "nodemon --config nodemon.json",
     "build": "browserify ./app/src/main.js -p esmify > ./app/public/bundle.js -d",
     "watch": "watchify ./app/src/main.js -p esmify -o ./app/public/bundle.js -v -d",

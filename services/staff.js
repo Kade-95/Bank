@@ -8,7 +8,7 @@ async function login(username, password) {
         const profile = await Staff.find({ username });
         const match = await bcrypt.compare(password, profile.pwHash);
         if (match) {
-            return { id: profile._id, roles: profile.roles };
+            return { id: profile._id, username, roles: profile.roles };
         }
         else {
             return Promise.reject('Username or password incorrect');

@@ -40,9 +40,10 @@ function GlobalComponents() {
         if (!utilities.isStaff()) {
             login.prepend(components.tab({ content: ['Login', 'Register'], active: 'Login' }));
         }
+
         submit = () => {
             let data = base.jsonForm(form);
-            utilities.connect({ method: 'POST', url: `login/${utilities.userType()}`, body: data })
+            utilities.connect({ method: 'POST', url: `login/${utilities.userType()}`, body: data, trigger: form.find('#form-control-Login') })
                 .then(res => {
                     form.find('.form-error').textContent = res;
                     utilities.render('dashboard');
@@ -142,7 +143,7 @@ function GlobalComponents() {
                 formError.textContent = 'Error: Password mismatch';
             }
             else {
-                utilities.connect({ method: 'PUT', url: `changepassword`, body: data })
+                utilities.connect({ method: 'PUT', url: `changepassword`, body: data, trigger: form.find('#form-control-Change') })
                     .then(res => {
                         components.alert(res);
                         popup.remove();
@@ -167,6 +168,9 @@ function GlobalComponents() {
                         },
                         {
                             element: 'a', attributes: { class: 'transaction-reciept-label' }, text: `${params.type == 'debit' ? '-' : '+'}${utilities.money(params.amount)}(${params.currency})`
+                        },
+                        {
+                            element: 'i', attributes: { class: 'fas fa-print', id: 'print-transaction' }
                         }
                     ]
                 },
@@ -217,8 +221,8 @@ function GlobalComponents() {
                                 display: grid;
                                 grid-template-rows: repeat(3, max-content);
                                 grid-template-columns: 1fr;
-                                padding: 20px;
-                                gap: 30px;
+                                padding: 10px;
+                                gap: 15px;
                                 justify-content: center;
                                 background: var(--secondary-color);
                                 color: var(--primary-color);
@@ -246,7 +250,7 @@ function GlobalComponents() {
                             .transaction-reciept-type{
                                 display: grid;
                                 grid-template-rows: max-content max-content;
-                                gap: 10px;
+                                gap: 5px;
                                 align-items: flex-start;
                                 justify-items: center;
                             }
@@ -256,14 +260,14 @@ function GlobalComponents() {
                                 grid-template-columns: 1fr;
                                 grid-template-rows: repeat(4, max-content);
                                 align-items: flex-start;
-                                padding: 20px 0px;
+                                padding: 10px 0px;
                             }
 
                             .transaction-reciept-detail{
                                 display: flex;
                                 justify-content: space-between;
                                 align-items: flex-start;
-                                padding: 40px 10px;
+                                padding: 30px 10px;
                                 box-shadow: 2px 4px 20px rgba(0, 0, 0, 0.1);
                             }
 
@@ -273,12 +277,36 @@ function GlobalComponents() {
                                 gap: 10px;
                                 justify-content: flex-end;
                             }
+
+                            #print-transaction{
+                                background: var(--dark-gray);
+                                color: var(--primary-color);
+                                width: 30px;
+                                height: 30px;
+                                display: flex;
+                                align-items: center;
+                                justify-content: center;
+                                justify-self: flex-end;
+                                cursor: pointer;
+                            }
                         `
                 }
             ]
         });
 
         components.popUp(transaction, 'Transaction Reciept');
+
+        transaction.addEventListener('click', event => {
+            if (event.target.id == 'print-transaction') {
+                let content = document.body.innerHTML;
+                document.body.render(transaction);
+                window.onafterprint = () => {
+                    document.body.innerHTML = content;
+                }
+
+                window.print();
+            }
+        });
     }
 }
 

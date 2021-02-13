@@ -77,7 +77,7 @@ function resetRates() {
 
 function init(callback) {
     const Staff = require('./doa/staff');
-    mongoose.connect('mongodb://localhost/dare', { useNewUrlParser: true, useUnifiedTopology: true });
+    mongoose.connect(process.env.MONGO_URL || 'mongodb://localhost:27017/bank', { useNewUrlParser: true, useUnifiedTopology: true });
     mongoose.Promise = global.Promise;
     const db = mongoose.connection;
 
@@ -89,7 +89,12 @@ function init(callback) {
             callback();
         } catch (error) {
             if (error) {
-                Staff.create({ username: '@admin', email: 'admin@mail.com', password: 'admin@1234', roles: ['Staff', 'Admin'] })
+                Staff.create({
+                    username: process.env.ADMIN_USERNAME || '@admin',
+                    email: process.env.ADMIN_EMAIL || 'admin@mail.com',
+                    password: process.env.ADMIN_PASSWORD || 'admin@1234',
+                    roles: ['Staff', 'Admin']
+                })
                     .then(admin => {
                         callback();
                     })
@@ -102,7 +107,8 @@ function init(callback) {
 }
 
 init(async () => {
-    app.listen(process.env.port || 3000, () => console.log('Listening on port 3000', 'http://localhost:3000'));
+    const port = process.env.PORT || 3000;
+    app.listen(port, () => console.log(`Server running on port - ${port} http://localhost:${port}`));
     global.rates = JSON.parse(await resetRates()).rates;
     setInterval(async () => {
         global.rates = JSON.parse(await resetRates()).rates;

@@ -1,5 +1,12 @@
 {
     "ignore": [
         "./data"
-    ]
+    ],
+    "env": {
+        "MONGO_URI": "mongodb://localhost:27017/bank",
+        "PORT": "3100",
+        "ADMIN_EMAIL": "admin@mail.com",
+        "ADMIN_PASSWORD": "admin@1234",
+        "ADMIN_USERNAME": "@admin"
+    }
 }

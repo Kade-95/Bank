@@ -4,10 +4,29 @@ module.exports = function Utils() {
     this.details = {};
     this.unResolved = {};
 
-    this.connect = (params = { method: '', url: '', body: {} }) => {
-        params.url = `${location.origin}/${params.url}`;
+    this.connect = (params = { method: '', url: '', body: {}, trigger }) => {
         return new Promise((resolve, reject) => {
+            let loading = base.createElement({
+                element: 'i', attributes: { class: 'fas fa-spinner fa-spin', style: { width: '30px', height: '30px', fontSize: '30px' } }
+            });
+
+            let startConnection = () => {
+                if (params.trigger) {
+                    params.trigger.replaceWith(loading);
+                }
+            }
+
+            let endConnection = () => {
+                if (params.trigger) {
+                    loading.replaceWith(params.trigger);
+                }
+            }
+
+            startConnection();
+
             let request = new XMLHttpRequest();
+            params.url = `${location.origin}/${params.url}`;
+
             request.responseType = 'json';
             request.onreadystatechange = event => {
                 if (request.readyState == 3) {
@@ -29,16 +48,18 @@ module.exports = function Utils() {
                         reject(request.response);
                         console.log(request.response)
                     }
-                }
-            }
-
-            request.onprogress = progress => {
-                if (progress.lengthComputable) {
+                    endConnection();
                 }
             }
 
             request.onerror = error => {
                 reject(error);
+                endConnection();
+            }
+
+            request.upload.onerror = error => {
+                reject(error);
+                endConnection();
             }
 
             request.timeout = 10000;

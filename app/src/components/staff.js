@@ -92,7 +92,7 @@ function StaffComponents() {
             else if (event.bubbledTo.id == 'button-save') {
                 let data = base.jsonForm(editBio);
                 if (!!editableImage.upload) data.image = editableImage.upload;
-                utilities.connect({ method: 'PUT', url: `staff/edit`, body: data })
+                utilities.connect({ method: 'PUT', url: `staff/edit`, body: data, trigger: event.bubbledTo })
                     .then(res => {
                         components.alert(res);
                         editBio.replaceWith(getBio);
@@ -406,7 +406,7 @@ function StaffComponents() {
             content.addChildEventListener("click", { classes: ['footer-buttons-action'] }, even => {
                 if (event.bubbledTo.id == 'button-decline' || event.bubbledTo.id == 'button-approve') {
                     let decision = event.bubbledTo.id == 'button-approve';
-                    this.resolve(params._id, decision)
+                    this.resolve(params._id, decision, event.bubbledTo)
                         .then(res => {
                             content.find('#reveiw-request-controls').replaceWith(done(decision));
                             params.clicked.remove();
@@ -515,7 +515,7 @@ function StaffComponents() {
             content.addChildEventListener("click", { classes: ['footer-buttons-action'] }, even => {
                 if (event.bubbledTo.id == 'button-decline' || event.bubbledTo.id == 'button-approve') {
                     let decision = event.bubbledTo.id == 'button-approve';
-                    this.resolve(params._id, decision)
+                    this.resolve(params._id, decision, event.bubbledTo)
                         .then(res => {
                             params.clicked.remove();
                         })
@@ -632,7 +632,7 @@ function StaffComponents() {
             content.addChildEventListener("click", { classes: ['footer-buttons-action'] }, even => {
                 if (event.bubbledTo.id == 'button-decline' || event.bubbledTo.id == 'button-approve') {
                     let decision = event.bubbledTo.id == 'button-approve';
-                    this.resolve(params._id, decision)
+                    this.resolve(params._id, decision, event.bubbledTo)
                         .then(res => {
                             content.find('#reveiw-request-controls').replaceWith(done(decision));
                             params.clicked.remove();
@@ -750,7 +750,7 @@ function StaffComponents() {
                     { element: 'input', name: 'staffPassword', type: 'password', note: 'Password must be atleast 8 characters with atleast(1 capital, 1 small, 1 number and 1 symbol)' },
                 ],
                 controls: [
-                    { element: 'button', name: 'Add Staff' }
+                    { element: 'button', name: 'Add' }
                 ]
             });
 
@@ -767,7 +767,7 @@ function StaffComponents() {
                 }
 
                 data = base.jsonForm(content);
-                utilities.connect({ method: 'POST', url: `create/staff`, body: data })
+                utilities.connect({ method: 'POST', url: `create/staff`, body: data, trigger: content.find('#form-control-Add') })
                     .then(res => {
                         popUp.remove();
                         components.alert(res.message);
@@ -1020,7 +1020,7 @@ function StaffComponents() {
             content.addChildEventListener('click', { classes: ['footer-buttons-action'] }, event => {
                 if (event.bubbledTo.id == 'button-approve' || event.bubbledTo.id == 'button-decline') {
                     let decision = event.bubbledTo.id == 'button-approve';
-                    this.resolve(params._id, decision)
+                    this.resolve(params._id, decision, event.bubbledTo)
                         .then(res => {
                             content.find('.footer-buttons').replaceWith(components.finish(res, decision));
                             params.row.remove();
@@ -1174,9 +1174,9 @@ function StaffComponents() {
         return content;
     }
 
-    this.resolve = async (id, decision) => {
+    this.resolve = async (id, decision, trigger) => {
         try {
-            let work = await utilities.connect({ method: 'PUT', url: 'staff/resolve', body: { id, decision } });
+            let work = await utilities.connect({ method: 'PUT', url: 'staff/resolve', body: { id, decision }, trigger });
 
             console.log(work);
             return work;

@@ -1,4 +1,4 @@
-const { Base, AppLibrary, Compression } = require("kedio/browser");
+const { Base, AppLibrary, Compression } = require("./kedio/browser");
 window.base = new Base(window);
 base.appLibrary = new AppLibrary();
 base.compressor = new Compression();

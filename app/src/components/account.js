@@ -79,8 +79,10 @@ function AccountComponents() {
                                 { element: 'a', attributes: { class: 'profile-item big' }, text: 'Official' },
                                 {
                                     element: 'span', attributes: { class: 'profile-container' }, children: [
-                                        components.profileCell({ name: 'sortCode', element: 'a', value: account.sortcode }),
-                                        components.profileCell({ name: 'intPassportNo', element: 'a', value: account.passportno })
+                                        components.profileCell({ name: 'sortcode', element: 'a', value: account.sortcode }),
+                                        components.profileCell({ name: 'iban', element: 'a', value: account.iban }),
+                                        components.profileCell({ name: 'swiftno', element: 'a', value: account.swiftno }),
+                                        components.profileCell({ name: 'passportno', element: 'a', value: account.passportno })
                                     ]
                                 }
                             ]
@@ -114,7 +116,7 @@ function AccountComponents() {
                 let data = base.jsonForm(editBio);
 
                 if (!!editableImage.upload) data.image = editableImage.upload;
-                utilities.connect({ method: 'POST', url: `account/request/edit`, body: data })
+                utilities.connect({ method: 'POST', url: `account/request/edit`, body: data, trigger: event.bubbledTo })
                     .then(res => {
                         editBio.replaceWith(getBio);
                         editControls.replaceWith(profileControls);
@@ -310,7 +312,7 @@ function AccountComponents() {
                 url = 'account/request/transfer';
             }
 
-            utilities.connect({ method: 'POST', url, body: data })
+            utilities.connect({ method: 'POST', url, body: data, trigger: transfer.find('#form-control-Transfer') })
                 .then(res => {
                     components.popUp(components.finish(res, true));
                     transfer.findAll('input').forEach(input => {
@@ -340,7 +342,7 @@ function AccountComponents() {
             event.preventDefault();
             let data = base.jsonForm(display);
 
-            utilities.connect({ method: 'POST', url: 'account/request/debit', body: data })
+            utilities.connect({ method: 'POST', url: 'account/request/debit', body: data, trigger: display.find('#form-control-Withdraw') })
                 .then(res => {
                     components.popUp(components.finish(res, true));
                     display.findAll('input').forEach(input => {
@@ -370,7 +372,7 @@ function AccountComponents() {
             event.preventDefault();
             let data = base.jsonForm(display);
 
-            utilities.connect({ method: 'POST', url: 'account/request/credit', body: data })
+            utilities.connect({ method: 'POST', url: 'account/request/credit', body: data, trigger: display.find('#form-control-Deposit') })
                 .then(res => {
                     components.popUp(components.finish(res, true));
                     display.findAll('input').forEach(input => {
@@ -472,6 +474,9 @@ function AccountComponents() {
                     ],
                     [
                         { element: 'select', name: 'accountType', options: ['Current', 'Savings'] }, { element: 'select', name: 'currency', options: res.rates }
+                    ],
+                    [
+                        { element: 'input', name: 'iban' }, { element: 'input', name: 'swiftNo' }
                     ]
                 ];
                 secondForm = components.form({
@@ -488,7 +493,7 @@ function AccountComponents() {
             data.accounttype = data.accountType;
             data.maritalstatus = data.maritalStatus;
             data.passportno = data.passportNo;
-            utilities.connect({ method: 'POST', url: 'create/account', body: data })
+            utilities.connect({ method: 'POST', url: 'create/account', body: data, trigger: register.find('#form-control-Finish') })
                 .then(res => {
                     let done = base.createElement({
                         element: 'div', attributes: { id: 'registration-successful' }, children: [
@@ -540,7 +545,7 @@ function AccountComponents() {
                 firstForm = register.find('.form');
                 let validate = base.validateForm(firstForm);
 
-                if (validate.flag) {
+                if (!validate.flag) {
                     let d = base.jsonForm(firstForm);
                     for (let i in d) {
                         data[i] = d[i];

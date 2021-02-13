@@ -1,0 +1,78 @@
+{
+  "_from": "kedio@^1.0.19",
+  "_id": "kedio@1.0.20",
+  "_inBundle": false,
+  "_integrity": "sha512-VwZNEBz/MTZt9fROjVMQ/wtUcXCJfW5su5PuWTWLrf8llctSFBgdjEqLqwcbulF2Zq8seFi+IZeK1HLo+nbmYw==",
+  "_location": "/kedio",
+  "_phantomChildren": {},
+  "_requested": {
+    "type": "range",
+    "registry": true,
+    "raw": "kedio@^1.0.19",
+    "name": "kedio",
+    "escapedName": "kedio",
+    "rawSpec": "^1.0.19",
+    "saveSpec": null,
+    "fetchSpec": "^1.0.19"
+  },
+  "_requiredBy": [
+    "#USER",
+    "/"
+  ],
+  "_resolved": "https://registry.npmjs.org/kedio/-/kedio-1.0.20.tgz",
+  "_shasum": "0e68bc0ca8538ae0a27c39e6630c77ab9b068f6a",
+  "_spec": "kedio@^1.0.19",
+  "_where": "C:\\codes\\Clients\\Bank",
+  "author": {
+    "name": "thekade"
+  },
+  "bugs": {
+    "url": "https://github.com/Kade-95/kedio/issues"
+  },
+  "bundleDependencies": false,
+  "dependencies": {
+    "bcrypt": "5.0.0",
+    "mongodb": "3.6.2"
+  },
+  "deprecated": false,
+  "description": "A Full Stacked JavaScript Library",
+  "devDependencies": {
+    "browser-resolve": "^2.0.0",
+    "esmify": "^2.1.1",
+    "gh-pages": "^3.1.0"
+  },
+  "homepage": "https://github.com/Kade-95/kedio#readme",
+  "keywords": [
+    "Compression",
+    "API",
+    "Full",
+    "Stack",
+    "Browser",
+    "Web",
+    "development",
+    "Tree",
+    "Data",
+    "science",
+    "Neural",
+    "network"
+  ],
+  "license": "ISC",
+  "main": "index.js",
+  "name": "kedio",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Kade-95/kedio.git"
+  },
+  "scripts": {
+    "browserify": "browserify ./browser.js -p esmify > ./build/bundle.js -d",
+    "build": "browserify ./app/src/main.js -p esmify > ./app/public/bundle.js -d",
+    "deploy": "gh-pages -d build",
+    "major": "npm version major",
+    "minor": "npm version minor",
+    "patch": "npm version patch",
+    "start": "npm run build && nodemon app/index.js",
+    "test": "nodemon ignore/test.js",
+    "watch": "watchify ./app/src/main.js -p esmify -o ./app/public/bundle.js -v -d"
+  },
+  "version": "1.0.20"
+}

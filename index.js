@@ -106,11 +106,14 @@ function init(callback) {
     });
 }
 
-init(async () => {
-    const port = process.env.PORT || 3000;
-    app.listen(port, () => console.log(`Server running on port - ${port} http://localhost:${port}`));
-    global.rates = JSON.parse(await resetRates()).rates;
-    setInterval(async () => {
-        global.rates = JSON.parse(await resetRates()).rates;
-    }, 1000 * 60 * 60);
-});
+// init(async () => {
+//     const port = process.env.PORT || 3000;
+//     app.listen(port, () => console.log(`Server running on port - ${port} http://localhost:${port}`));
+//     global.rates = JSON.parse(await resetRates()).rates;
+//     setInterval(async () => {
+//         global.rates = JSON.parse(await resetRates()).rates;
+//     }, 1000 * 60 * 60);
+// });
+
+const port = process.env.PORT || 3000;
+app.listen(port, () => console.log(`Server running on port - ${port} http://localhost:${port}`));

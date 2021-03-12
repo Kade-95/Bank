@@ -25,6 +25,7 @@ function GlobalComponents() {
         let login = main.makeElement({
             element: 'div', attributes: { id: 'login-window', class: 'form-container' }, children: [
                 components.form({
+                    id: 'login-form',
                     contents: [
                         { element: 'input', name: 'username' },
                         { element: 'input', name: 'password', type: 'password' },

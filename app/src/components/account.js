@@ -239,10 +239,12 @@ function AccountComponents() {
 
     this.transfer = () => {
         let transfer = components.form({
+            header: 'Make a Transfer',
             contents: [
                 { element: 'select', name: 'transferType', options: ['Internal Transfer', 'External Transfer'], selected: 'Internal Transfer' },
                 { element: 'input', name: 'bank' },
-                { element: 'input', name: 'accountNumber', note: ' ', type: 'number' },
+                { element: 'input', name: 'accountNumber', note: 'IBAN', type: 'number' },
+                { element: 'input', name: 'swiftNo', note: 'Routing', type: 'number' },
                 { element: 'input', name: 'accountName' },
                 { element: 'input', name: 'amount', type: 'number' },
                 { element: 'input', name: 'password', type: 'password' },
@@ -329,6 +331,7 @@ function AccountComponents() {
 
     this.withdraw = () => {
         let display = components.form({
+            header: 'Make a Withdrawal',
             contents: [
                 { element: 'input', name: 'amount', type: 'number' },
                 { element: 'input', name: 'password', type: 'password' },
@@ -359,6 +362,7 @@ function AccountComponents() {
 
     this.deposit = () => {
         let display = components.form({
+            header: 'Make a Deposit',
             contents: [
                 { element: 'input', name: 'amount', type: 'number' },
                 { element: 'input', name: 'password', type: 'password' },
@@ -450,6 +454,7 @@ function AccountComponents() {
                 { element: 'button', name: "Finish" }
             ],
             firstForm = components.form({
+                id: 'register-form',
                 header: 'Please fill out this form with accurate information',
                 contents: firstContents,
                 controls: firstControls
@@ -474,9 +479,6 @@ function AccountComponents() {
                     ],
                     [
                         { element: 'select', name: 'accountType', options: ['Current', 'Savings'] }, { element: 'select', name: 'currency', options: res.rates }
-                    ],
-                    [
-                        { element: 'input', name: 'iban' }, { element: 'input', name: 'swiftNo' }
                     ]
                 ];
                 secondForm = components.form({

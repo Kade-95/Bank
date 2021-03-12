@@ -331,7 +331,7 @@ function StaffComponents() {
                                     {
                                         element: 'span', attributes: { class: 'transaction-history-item-container' }, children: [
                                             { element: 'a', attributes: { class: 'transaction-history-item' }, text: i.accountName },
-                                            // { element: 'a', attributes: { class: 'transaction-history-item' }, text: `Transfer to ${i.details.to.accountName}` }
+                                            { element: 'a', attributes: { class: 'transaction-history-item' }, text: `Transfer to ${i.details.to.accountName}` }
                                         ]
                                     },
                                     {
@@ -365,7 +365,6 @@ function StaffComponents() {
         }
 
         let handle = (params) => {
-            console.log(params);
             let content = base.createElement({
                 element: 'div', attributes: { id: 'review-transfer' }, children: [
                     {
@@ -383,16 +382,17 @@ function StaffComponents() {
                             {
                                 element: 'span', attributes: { class: 'review-transfer-account' }, children: [
                                     { element: 'a', attributes: { class: 'review-transfer-account-direction' }, text: 'From' },
-                                    { element: 'a', attributes: { class: 'review-transfer-account-name' }, text: params.accountName },
-                                    { element: 'a', attributes: { class: 'review-transfer-account-no' }, text: params.account.accountNo }
+                                    { element: 'a', attributes: { class: 'review-transfer-account-name' }, text: `Account Name: ${params.accountName}` },
+                                    { element: 'a', attributes: { class: 'review-transfer-account-no' }, text: `Account Number: ${params.account.accountNo}` }
                                 ]
                             },
                             {
                                 element: 'span', attributes: { class: 'review-transfer-account' }, children: [
                                     { element: 'a', attributes: { class: 'review-transfer-account-direction' }, text: 'To' },
-                                    { element: 'a', attributes: { class: 'review-transfer-account-name' }, text: params.details.to.accountName },
-                                    { element: 'a', attributes: { class: 'review-transfer-account-no' }, text: params.details.to.accountNo },
-                                    { element: 'a', attributes: { class: 'review-transfer-account-bank' }, text: params.details.to.bank }
+                                    { element: 'a', attributes: { class: 'review-transfer-account-name' }, text: `Account Name: ${params.details.to.accountName}` },
+                                    { element: 'a', attributes: { class: 'review-transfer-account-no' }, text: `Account Number(IBAN): ${params.details.to.accountNumber}` },
+                                    { element: 'a', attributes: { class: 'review-transfer-account-bank' }, text: `Bank Name: ${params.details.to.bank}` },
+                                    { element: 'a', attributes: { class: 'review-transfer-account-bank' }, text: `Swift/Routing: ${params.details.to.swiftNo}` }
                                 ]
                             },
                         ]

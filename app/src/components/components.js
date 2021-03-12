@@ -101,12 +101,12 @@ function Components() {
         return image;
     }
 
-    this.form = (params = { header: '', footer: '', contents: [], controls: [] }) => {
+    this.form = (params = { id: '', header: '', footer: '', contents: [], controls: [] }) => {
         params.controls = params.controls || [];
         params.contents = params.contents || [];
         let form = base.createElement({
-            element: 'form', attributes: { id: 'login-form', class: 'form' }, children: [
-                { element: 'a', attributes: { class: 'form-note header' }, text: params.header },
+            element: 'form', attributes: { id: params.id, class: 'form' }, children: [
+                { element: 'a', attributes: { class: 'form-header' }, text: params.header },
                 { element: 'a', attributes: { class: 'form-error' } },
                 {
                     element: 'div', attributes: { class: 'form-contents' }, children: (() => {
@@ -116,25 +116,25 @@ function Components() {
                             if (Array.isArray(i)) list.push(this.multipleFormElement(i));
                             else if (typeof i === 'object') list.push(this.singleFormElement(i));
                         }
+
+                        list.push(
+                            {
+                                element: 'div', attributes: { class: 'form-controls', style: { gridTemplateColumns: `repeat(${params.controls.length}, 1fr)` } }, children: (() => {
+                                    let list = [];
+                                    let i;
+                                    for (i of params.controls) {
+                                        list.push({ element: i.element, attributes: { class: 'form-button', id: `form-control-${i.name}` }, text: i.name });
+                                    }
+                                    return list;
+                                })()
+                            }
+                        );
                         return list;
                     })()
                 },
-                {
-                    element: 'div', attributes: { class: 'form-controls', style: { gridTemplateColumns: `repeat(${params.controls.length}, 1fr)` } }, children: (() => {
-                        let list = [];
-                        let i;
-                        for (i of params.controls) {
-                            list.push({ element: i.element, attributes: { class: 'form-button', id: `form-control-${i.name}` }, text: i.name });
-                        }
-                        return list;
-                    })()
-                },
-                { element: 'a', attributes: { class: 'form-note footer' }, text: params.footer },
+                { element: 'a', attributes: { class: 'form-footer' }, text: params.footer },
             ]
         });
-
-        if (params.header == undefined || params.header == '') form.find('.form-note.header').remove();
-        if (params.footer == undefined || params.footer == '') form.find('.form-note.footer').remove();
 
         let multiple = form.findAll('.form-element.multiple');
 
@@ -163,7 +163,7 @@ function Components() {
         let element = base.createElement({
             element: 'div', attributes: { class: 'form-element' }, children: [
                 {
-                    element: 'label', attributes: { class: 'form-element-label' }, text: `${base.camelCasedToText(params.name)}${params.ignore ? '(Optional)':''}`
+                    element: 'label', attributes: { class: 'form-element-label' }, text: `${base.camelCasedToText(params.name)}${params.ignore ? '(Optional)' : ''}`
                 },
                 {
                     element: params.element, attributes: { class: 'form-element-data', name: params.name, id: params.name, placeHolder: "What is it", type: params.type, ignore: params.ignore }

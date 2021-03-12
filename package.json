@@ -26,8 +26,7 @@
     "start": "node index.js",
     "start:nodemon": "nodemon --config nodemon.json",
     "build": "browserify ./app/src/main.js -p esmify > ./app/public/bundle.js -d",
-    "watch": "watchify ./app/src/main.js -p esmify -o ./app/public/bundle.js -v -d",
-    "browserify": "browserify ./browser.js -p esmify > ./build/bundle.js -d"
+    "watch": "watchify ./app/src/main.js -p esmify -o ./app/public/bundle.js -v -d"
   },
   "repository": {
     "type": "git",

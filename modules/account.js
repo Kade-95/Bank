@@ -87,14 +87,6 @@ const AccountSchema = new Schema({
     birthdate: {
         type: String,
         default: ''
-    },
-    iban: {
-        type: String,
-        default: ''
-    },
-    swiftno: {
-        type: String,
-        default: ''
     }
 });
 

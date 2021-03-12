@@ -2,22 +2,32 @@
     height: 100%;
     overflow: hidden;
     display: grid;
-    grid-template-rows: max-content max-content;
+    grid-template-rows: max-content 1fr;
     grid-template-columns: 1fr;
     align-items: flex-start;
 }
 
 .form {
-    width: calc(100% - 60px);
-    height: calc(100% - (30px)*2);
-    padding: 24px 30px;
+    width: calc(100% - 2em);
+    height: calc(100% - 2em);
+    padding: 1em;
     display: grid;
     gap: 24px;
     overflow: auto;
-    align-items: flex-start;
-    justify-self: center;
+    place-items: center;
+    place-content: center;
     grid-template-columns: 1fr;
-    grid-template-rows: repeat(4, max-content);
+    grid-template-rows: max-content;
+}
+
+.form-header, .form-footer {
+    color: var(--secondary-color);
+    font-weight: 700;
+    font-size: calc(var(--text-font-size));
+    display: flex;
+    align-items: center;
+    font-style: normal;
+    text-transform: uppercase;
 }
 
 .form-error{
@@ -27,13 +37,26 @@
     justify-content: center;
 }
 
-.form-contents, .form-controls{
+.form-contents{
     display: grid;
     grid-template-rows: 1fr;
     grid-template-columns: 1fr;
     align-items: flex-start;
     gap: 24px;
-    width: 70%;
+    width: 90%;
+    justify-self: center;
+
+    max-width: 700px;
+}
+
+.form-controls{
+    display: grid;
+    grid-template-rows: 1fr;
+    grid-template-columns: 1fr;
+    align-items: flex-start;
+    gap: 24px;
+    width: 100%;
+    padding: 2vh 0em;
     justify-self: center;
 }
 
@@ -99,7 +122,7 @@
 .form-note {
     color: var(--secondary-color);
     font-weight: 300;
-    font-size: calc(var(--text-font-size)*0.8);
+    font-size: calc(var(--text-font-size));
     display: flex;
     align-items: center;
     font-style: normal;
@@ -108,7 +131,11 @@
 @media(min-width: 700px) {
     .form-container {
         height: calc(100% - 4em);
-        padding: 2em;
+        padding: 2vh 0vw;
+    }
+
+    .form-contents{
+        width: 70%;
     }
 
     .form-button {

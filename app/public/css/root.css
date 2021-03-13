@@ -37,7 +37,7 @@ html, body {
 }
 
 #app-window.big-header {
-    grid-template-rows: max(300px, 30%) 1fr;
+    grid-template-rows: max(200px, 30vh) 1fr;
 }
 
 ::-webkit-scrollbar {

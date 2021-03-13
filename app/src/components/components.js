@@ -106,10 +106,16 @@ function Components() {
         params.contents = params.contents || [];
         let form = base.createElement({
             element: 'form', attributes: { id: params.id, class: 'form' }, children: [
-                { element: 'a', attributes: { class: 'form-header' }, text: params.header },
-                { element: 'a', attributes: { class: 'form-error' } },
                 {
-                    element: 'div', attributes: { class: 'form-contents' }, children: (() => {
+                    element: 'span', attributes: { class: 'form-header' }, children: [
+                        { element: 'span', text: params.header },
+                        { element: 'span', attributes: { class: 'form-error' } },
+                    ]
+                },
+                {
+                    element: 'div', attributes: { class: 'form-contents', 
+                    style: { gridTemplateRows: `repeat(${params.contents.length + 1}, max-content)` } 
+                }, children: (() => {
                         let list = [];
                         let i;
                         for (i of params.contents) {

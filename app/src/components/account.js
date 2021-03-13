@@ -434,7 +434,7 @@ function AccountComponents() {
 
     this.register = () => {
         let register = base.createElement({
-            element: 'div', attributes: { id: 'register-window', class: 'form-container', style: { overflow: 'auto' } }, children: [
+            element: 'div', attributes: { id: 'register-window', class: 'form-container' }, children: [
                 components.tab({ content: ['Login', 'Register'], active: 'Register' }),
             ]
         }),
@@ -547,7 +547,7 @@ function AccountComponents() {
                 firstForm = register.find('.form');
                 let validate = base.validateForm(firstForm);
 
-                if (!validate.flag) {
+                if (validate.flag) {
                     let d = base.jsonForm(firstForm);
                     for (let i in d) {
                         data[i] = d[i];

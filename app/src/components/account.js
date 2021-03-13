@@ -442,7 +442,7 @@ function AccountComponents() {
             firstContents = [
                 { element: 'input', name: 'username' },
                 { element: 'input', name: 'email', type: 'email' },
-                { element: 'input', name: 'password', type: 'password' },
+                { element: 'input', name: 'password', type: 'password', note: 'Password must have atleast 1 capital, 1 small, 1 number and 1 symbol' },
                 { element: 'input', name: 'phone' },
             ],
             firstControls = [

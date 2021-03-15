@@ -36,6 +36,8 @@ function StaffComponents() {
                         components.profileCell({ name: 'religion', element: 'select', value: staff.religion || '', options: ['Christainity', 'Islam', 'Traditional'] }),
                         components.profileCell({ name: 'maritalStatus', element: 'select', value: staff.maritalstatus || '', options: ['Single', 'Married', 'Divorced'] }),
                         components.profileCell({ name: 'address', element: 'input', value: staff.address || '' }),
+                        components.profileCell({ name: 'username', element: 'input', value: staff.username || '' }),
+                        components.profileCell({ name: 'email', element: 'input', value: staff.email || '' }),
                         components.profileCell({ name: 'dateOfBirth', element: 'input', value: staff.birthdate || '', type: 'date' }),
                         components.profileCell({ name: 'nationality', element: 'select', value: staff.nationality || '', options: ['Nigeria', 'Ghana', 'Togo'] })
                     ]
@@ -92,6 +94,7 @@ function StaffComponents() {
             else if (event.bubbledTo.id == 'button-save') {
                 let data = base.jsonForm(editBio);
                 if (!!editableImage.upload) data.image = editableImage.upload;
+                console.log(data);
                 utilities.connect({ method: 'PUT', url: `staff/edit`, body: data, trigger: event.bubbledTo })
                     .then(res => {
                         components.alert(res);

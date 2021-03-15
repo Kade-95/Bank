@@ -110,7 +110,7 @@ function StaffComponents() {
     this.dashboard = (staff = utilities.details) => {
         let app = components.app();
         let header = app.find('#main-header');
-        header.render(this.headerContent());
+        header.render(this.headerContent(staff));
         let main = app.find('#main-window');
         main.makeElement({
             element: 'div', attributes: { id: 'dashboard', class: 'form-container' }, children: [
@@ -1144,12 +1144,13 @@ function StaffComponents() {
         return _actions;
     }
 
-    this.headerContent = (staff = { _id: 1, image: '../images/cover.png' }) => {
+    this.headerContent = (staff = { _id: 1, image: '../images/dp.png' }) => {
+        console.log(staff);
         let content = base.createElement({
             element: 'span', attributes: { class: 'header-account-details' }, children: [
                 {
                     element: 'span', attributes: { class: 'header-account-details-container account-name' }, children: [
-                        { element: staff._id ? 'img' : 'i', attributes: { id: 'dp', class: staff._id ? 'img' : 'icon fas fa-user', src: staff._id ? staff.image : '' } },
+                        { element: staff._id ? 'img' : 'i', attributes: { id: 'dp', class: staff._id ? 'img' : 'icon fas fa-user', src: staff._id ? staff.image : '../images/dp.png' } },
                         {
                             element: 'span', attributes: {}, children: [
                                 { element: 'a', attributes: { class: 'header-account-details-item' }, text: 'Welcome' },

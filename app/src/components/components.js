@@ -172,7 +172,7 @@ function Components() {
                     element: 'label', attributes: { class: 'form-element-label' }, text: `${base.camelCasedToText(params.name)}${params.ignore ? '(Optional)' : ''}`
                 },
                 {
-                    element: params.element, attributes: { class: 'form-element-data', name: params.name, id: params.name, placeHolder: "What is it", type: params.type, ignore: params.ignore }
+                    element: params.element, attributes: { class: 'form-element-data', name: params.name, id: params.name, placeHolder: params.name, type: params.type, ignore: params.ignore }
                 }
             ]
         });
